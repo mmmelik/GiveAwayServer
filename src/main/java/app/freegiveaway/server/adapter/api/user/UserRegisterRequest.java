@@ -1,9 +1,13 @@
 package app.freegiveaway.server.adapter.api.user;
 
+import app.freegiveaway.server.service.User;
+import lombok.Data;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+@Data
 public class UserRegisterRequest {
 
     @NotBlank
@@ -17,4 +21,11 @@ public class UserRegisterRequest {
     @Size(min = 6)
     private String password;
 
+    public User toUser() {
+        return User.builder()
+                .name(username)
+                .mail(mail)
+                .password(password)
+                .build();
+    }
 }

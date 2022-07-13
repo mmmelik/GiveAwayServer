@@ -1,6 +1,7 @@
 package app.freegiveaway.server.adapter.jpa.user;
 
 import app.freegiveaway.server.adapter.jpa.common.BaseEntity;
+import app.freegiveaway.server.service.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,4 +21,24 @@ public class UserEntity extends BaseEntity {
 
     @Column(nullable = false)
     private String password;
+
+    public static UserEntity fromUser(User user) {
+        UserEntity entity=new UserEntity();
+        entity.id=user.getId();
+        entity.mail= user.getMail();
+        entity.name=user.getName();
+        entity.password= user.getPassword();
+        entity.creationDate=user.getCreationDate();
+        return entity;
+    }
+
+    public User toUser() {
+        return User.builder()
+                .id(id)
+                .mail(mail)
+                .password(password)
+                .name(name)
+                .creationDate(creationDate)
+                .build();
+    }
 }
