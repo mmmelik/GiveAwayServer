@@ -1,4 +1,4 @@
-package app.freegiveaway.server;
+package app.freegiveaway.server.adapter.api.user;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
 @Getter
 @Setter
 @ToString
-public class LoginRequest {
+public class UserLoginRequest {
 
     @NotBlank
     @Email

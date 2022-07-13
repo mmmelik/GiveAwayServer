@@ -1,5 +1,6 @@
 package app.freegiveaway.server;
 
+import app.freegiveaway.server.adapter.api.user.UserLoginRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -30,9 +31,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
-            LoginRequest loginRequest=new ObjectMapper().readValue(request.getInputStream(),LoginRequest.class);
-            log.info(loginRequest.toString());
-            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getMail(), loginRequest.getPassword(), new ArrayList<>()));
+            UserLoginRequest userLoginRequest =new ObjectMapper().readValue(request.getInputStream(), UserLoginRequest.class);
+            log.info(userLoginRequest.toString());
+            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLoginRequest.getMail(), userLoginRequest.getPassword(), new ArrayList<>()));
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException("Unable to map request body");
