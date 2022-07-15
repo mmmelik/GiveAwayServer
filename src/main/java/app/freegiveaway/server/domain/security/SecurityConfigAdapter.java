@@ -1,4 +1,4 @@
-package app.freegiveaway.server;
+package app.freegiveaway.server.domain.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +30,7 @@ public class SecurityConfigAdapter {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.csrf().disable().antMatcher("/api/**").authorizeRequests()
-                    .antMatchers("/api/login","/api/register").permitAll()
+                    .antMatchers("/api/user/login","/api/user/register").permitAll()
                     .and().formLogin().disable()
                     .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                     .addFilter(new JwtAuthorizationFilter(authenticationManager()))

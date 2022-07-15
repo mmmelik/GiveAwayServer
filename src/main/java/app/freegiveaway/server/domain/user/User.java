@@ -1,5 +1,6 @@
-package app.freegiveaway.server.service;
+package app.freegiveaway.server.domain.user;
 
+import app.freegiveaway.server.domain.user.role.UserRole;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,4 +17,6 @@ public class User {
     private String mail;
     private String password;
     private LocalDateTime creationDate;
+    private UserRole userRole;
+    private Boolean enabled;
 }

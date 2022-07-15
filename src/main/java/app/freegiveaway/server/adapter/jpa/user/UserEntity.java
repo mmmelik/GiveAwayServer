@@ -1,12 +1,16 @@
 package app.freegiveaway.server.adapter.jpa.user;
 
 import app.freegiveaway.server.adapter.jpa.common.BaseEntity;
-import app.freegiveaway.server.service.User;
+
+import app.freegiveaway.server.adapter.jpa.user.role.UserRoleEntity;
+import app.freegiveaway.server.domain.user.User;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Getter
@@ -22,6 +26,12 @@ public class UserEntity extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
+    @ManyToOne
+    private UserRoleEntity userRole;
+
+    @ColumnDefault("1")
+    private Boolean enabled;
+
     public static UserEntity fromUser(User user) {
         UserEntity entity=new UserEntity();
         entity.id=user.getId();
@@ -29,6 +39,8 @@ public class UserEntity extends BaseEntity {
         entity.name=user.getName();
         entity.password= user.getPassword();
         entity.creationDate=user.getCreationDate();
+        entity.userRole=UserRoleEntity.fromUserRole(user.getUserRole());
+        entity.enabled=user.getEnabled();
         return entity;
     }
 
@@ -39,6 +51,8 @@ public class UserEntity extends BaseEntity {
                 .password(password)
                 .name(name)
                 .creationDate(creationDate)
+                .userRole(userRole.toUserRole())
+                .enabled(enabled)
                 .build();
     }
 }

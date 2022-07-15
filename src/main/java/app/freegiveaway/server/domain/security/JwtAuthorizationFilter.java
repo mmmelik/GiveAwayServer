@@ -1,6 +1,7 @@
-package app.freegiveaway.server;
+package app.freegiveaway.server.domain.security;
 
-import io.jsonwebtoken.Jwts;
+import app.freegiveaway.server.domain.user.role.RoleName;
+import app.freegiveaway.server.domain.user.role.UserRole;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {
@@ -41,13 +43,18 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(String header) {
-        String user = JwtHelper.getUserFromToken(header.replace(SecurityConstant.TOKEN_PREFIX, ""));
+        String token=header.replace(SecurityConstant.TOKEN_PREFIX, "");
+
+        String user = JwtHelper.getUserFromToken(token);
+        UserRole role = UserRole.builder()
+                .roleName(RoleName.valueOf(JwtHelper.getRoleClaim(token)))
+                .build();
 
         if (user == null) {
             throw new RuntimeException("Unable to parse user from token.");
         }
 
-        return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+        return new UsernamePasswordAuthenticationToken(user, null, List.of(role.grantedAuthority()));
 
     }
 }

@@ -1,7 +1,6 @@
 package app.freegiveaway.server.adapter.api.user;
 
-import app.freegiveaway.server.service.User;
-import jdk.jfr.SettingDefinition;
+import app.freegiveaway.server.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,6 @@
 package app.freegiveaway.server.adapter.api.user;
 
-import app.freegiveaway.server.service.User;
+import app.freegiveaway.server.domain.user.User;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
