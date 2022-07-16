@@ -8,7 +8,7 @@ public interface UserPersistencePort {
 
     boolean isPresent(String mail);
 
-    User register(User user);
+    User save(User user);
 
     User findUserByMail(String mail);
 

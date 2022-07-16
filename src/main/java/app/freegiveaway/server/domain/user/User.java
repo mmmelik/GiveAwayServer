@@ -19,4 +19,5 @@ public class User {
     private LocalDateTime creationDate;
     private UserRole userRole;
     private Boolean enabled;
+    private Integer ticket;
 }

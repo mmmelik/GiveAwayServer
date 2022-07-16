@@ -21,7 +21,7 @@ public class UserService {
         user.setUserRole(userPersistencePort.getDefaultRole());
         user.setEnabled(true);
 
-        return userPersistencePort.register(user);
+        return userPersistencePort.save(user);
 
     }
 
